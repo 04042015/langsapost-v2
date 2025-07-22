@@ -2,11 +2,54 @@
   "name": "langsapost",
   "version": "0.1.0",
   "private": true,
+  "description": "Portal berita terpercaya untuk Langsa dan sekitarnya",
+  "keywords": [
+    "news",
+    "portal",
+    "nextjs",
+    "react",
+    "supabase",
+    "tailwindcss",
+    "langsa",
+    "aceh"
+  ],
+  "author": "Tim Langsapost",
+  "license": "MIT",
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:inspect": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
+    "build:analyze": "ANALYZE=true next build",
     "start": "next start",
-    "lint": "next lint"
+    "start:prod": "NODE_ENV=production next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --watchAll=false",
+    "db:types": "supabase gen types typescript --project-id $SUPABASE_PROJECT_ID --schema public > src/types/database.ts",
+    "db:reset": "supabase db reset",
+    "db:migrate": "supabase migration up",
+    "db:seed": "supabase seed",
+    "docker:build": "docker build -t langsapost .",
+    "docker:run": "docker run -p 3000:3000 langsapost",
+    "docker:dev": "docker-compose up",
+    "docker:prod": "docker-compose -f docker-compose.prod.yml up",
+    "clean": "rm -rf .next dist coverage",
+    "clean:cache": "rm -rf .next/cache",
+    "clean:deps": "rm -rf node_modules package-lock.json && npm install",
+    "postinstall": "npm run type-check",
+    "prepare": "husky install || true",
+    "release": "npm run build && npm run test:ci",
+    "backup:db": "node scripts/backup-database.js",
+    "sitemap:generate": "node scripts/generate-sitemap.js",
+    "precommit": "lint-staged",
+    "size": "npx size-limit",
+    "analyze": "npm run build:analyze"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
@@ -52,5 +95,29 @@
     "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/langsapost/website"
+  },
+  "bugs": {
+    "url": "https://github.com/langsapost/website/issues"
+  },
+  "homepage": "https://langsapost.com"
 }

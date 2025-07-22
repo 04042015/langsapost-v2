@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+
+# Disallow admin areas
+Disallow: /admin
+Disallow: /api/admin
+Disallow: /auth
+
+# Disallow search results and filters
+Disallow: /cari
+Disallow: /*?*
+
+# Allow important files
+Allow: /sitemap.xml
+Allow: /rss.xml
+
+# Sitemap location
+Sitemap: https://langsapost.com/sitemap.xml
+
+# Crawl-delay for different bots
+User-agent: Googlebot
+Crawl-delay: 1
+
+User-agent: Bingbot
+Crawl-delay: 2
+
+User-agent: Slurp
+Crawl-delay: 2
